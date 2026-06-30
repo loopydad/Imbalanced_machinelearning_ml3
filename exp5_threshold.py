@@ -13,7 +13,7 @@ from sklearn.preprocessing import StandardScaler
 
 SEED=42
 DATA_PATH="data/creditcard.csv"
-OUT_DIR="simple_optuna_experiments/results_test_only"
+OUT_DIR="results_test_only"
 THRESHOLDS=[0.01,0.03,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50,0.60,0.70,0.80,0.90]
 
 

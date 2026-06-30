@@ -17,7 +17,7 @@ from sklearn.utils.class_weight import compute_sample_weight
 
 SEED=42
 DATA_PATH="data/creditcard.csv"
-OUT_DIR="simple_optuna_experiments/results_test_only"
+OUT_DIR="results_test_only"
 N_TRIALS=int(os.environ.get("OPTUNA_TRIALS","30"))
 THRESHOLDS=[0.01,0.03,0.05,0.10,0.15,0.20,0.25,0.30,0.35,0.40,0.45,0.50,0.60,0.70,0.80,0.90]
 
@@ -168,6 +168,38 @@ def params_to_row(params):
     return row
 
 
+def add_start_trials(study):
+    base={
+        "model":"RF",
+        "method":"SMOTE",
+        "C":1.0,
+        "n_estimators":25,
+        "max_depth":10,
+        "min_samples_split":2,
+        "min_samples_leaf":2,
+        "max_features":"sqrt",
+        "hidden_code":"16",
+        "alpha":0.0001,
+        "learning_rate_init":0.001,
+        "max_iter":15,
+        "weight_mode":"balanced",
+        "pos_weight":10.0,
+        "sampling_strategy":0.1,
+        "k_neighbors":5
+    }
+    for strategy,k in [(0.1,5),(0.1,3),(0.1,7),(0.2,5),(0.3,3)]:
+        trial=base.copy()
+        trial["sampling_strategy"]=strategy
+        trial["k_neighbors"]=k
+        study.enqueue_trial(trial)
+
+    trial=base.copy()
+    trial["method"]="none"
+    trial["sampling_strategy"]=0.1
+    trial["k_neighbors"]=5
+    study.enqueue_trial(trial)
+
+
 def write_summary_file():
     files=[
         "exp1_baseline_model_comparison.csv",
@@ -192,7 +224,7 @@ def write_summary_file():
         "7个脚本分别对应7个实验。所有脚本都固定随机种子，先划分train/val/test，再标准化Time和Amount。\n\n"
         "AUPRC和Average Precision看的是概率排序能力，不依赖某个固定threshold。\n\n"
         "Custom Score=TP*10-FN*20-FP，漏掉欺诈的惩罚最大。\n\n"
-        "实验7用Optuna搜索模型、训练方法和参数，目标是validation AUPRC。选出最好trial后，只在test上评估一次。\n"
+        "实验7用Optuna搜索模型、训练方法和参数。参数选择只看验证集AUPRC，最终表只汇报测试集结果。\n"
     )
     with open(os.path.join(OUT_DIR,"experiment_readme.md"),"w",encoding="utf-8") as f:
         f.write(text)
@@ -223,13 +255,14 @@ def main():
 
     sampler=optuna.samplers.TPESampler(seed=SEED)
     study=optuna.create_study(direction="maximize",sampler=sampler)
+    add_start_trials(study)
     study.optimize(objective,n_trials=N_TRIALS)
 
     best_params=ask_params(study.best_trial)
     test_auprc,best_model,test_prob=train_and_score(best_params,X_train,y_train,X_test,y_test)
     test_metrics=calc_metrics(y_test,test_prob,0.5)
 
-    summary={"experiment_id":"exp7","experiment_name":"optuna_search","split":"test","selection_metric":"validation_AUPRC","best_trial_number":study.best_trial.number}
+    summary={"experiment_id":"exp7","experiment_name":"optuna_search","split":"test","best_trial_number":study.best_trial.number}
     summary.update(params_to_row(best_params))
     summary.update({"test_AUPRC":test_metrics["AUPRC"],"test_Average_Precision":test_metrics["Average_Precision"],"test_Custom_Score":test_metrics["Custom_Score"]})
     pd.DataFrame([summary]).to_csv(os.path.join(OUT_DIR,"exp7_optuna_search_summary.csv"),index=False,encoding="utf-8-sig")

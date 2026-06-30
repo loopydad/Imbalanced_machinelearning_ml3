@@ -16,7 +16,7 @@ from sklearn.utils.class_weight import compute_sample_weight
 
 SEED=42
 DATA_PATH="data/creditcard.csv"
-OUT_DIR="simple_optuna_experiments/results_test_only"
+OUT_DIR="results_test_only"
 
 
 def set_seed():

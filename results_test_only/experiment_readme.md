@@ -1,9 +1,9 @@
-# 结果说明
+# 实验说明
 
-这个目录只放最终查看用的结果。
+7个脚本分别对应7个实验。所有脚本都固定随机种子，先划分train/val/test，再标准化Time和Amount。
 
-所有表都删掉了 status 和 skipped_reason。
+AUPRC和Average Precision看的是概率排序能力，不依赖某个固定threshold。
 
-有 split 字段的表只保留 test。验证集只在代码内部用于选参数，不在最终结果里单独展示。
+Custom Score=TP*10-FN*20-FP，漏掉欺诈的惩罚最大。
 
-Optuna 的最终表使用 test_AUPRC、test_Average_Precision 和 test_Custom_Score 汇报最优模型在测试集上的表现。
+实验7用Optuna搜索模型、训练方法和参数。参数选择只看验证集AUPRC，最终表只汇报测试集结果。
