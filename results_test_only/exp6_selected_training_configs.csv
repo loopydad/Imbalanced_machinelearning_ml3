@@ -1,0 +1,13 @@
+﻿model,selected_config_type,selected_training_method,selected_sampling_strategy,selected_k_neighbors,selected_class_weight
+LR,none,none,,,
+LR,best_SMOTE,SMOTE,1.0,3.0,
+LR,best_class_weight,class_weight,,,balanced
+LR,SMOTEENN_default,SMOTEENN,1.0,5.0,
+RF,none,none,,,
+RF,best_SMOTE,SMOTE,0.1,5.0,
+RF,best_class_weight,class_weight,,,1
+RF,SMOTEENN_default,SMOTEENN,1.0,5.0,
+MLP,none,none,,,
+MLP,best_SMOTE,SMOTE,1.0,3.0,
+MLP,best_class_weight,class_weight,,,balanced
+MLP,SMOTEENN_default,SMOTEENN,1.0,5.0,

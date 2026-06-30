@@ -1,0 +1,2 @@
+﻿experiment_id,experiment_name,split,selection_metric,best_trial_number,model,method,C,n_estimators,max_depth,min_samples_split,min_samples_leaf,max_features,hidden_code,hidden_layer_sizes,alpha,learning_rate_init,max_iter,weight_mode,pos_weight,sampling_strategy,k_neighbors,test_AUPRC,test_Average_Precision,test_Custom_Score
+exp7,optuna_search,test,validation_AUPRC,16,RF,none,4.164455151973575,67,10,6,5,sqrt,32_16,"(32, 16)",3.091413229611854e-05,0.001927339699527,18,,,,,0.81029823749278,0.8104476549782291,215
