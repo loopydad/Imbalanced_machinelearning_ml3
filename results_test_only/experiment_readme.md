@@ -6,4 +6,4 @@ AUPRC和Average Precision看的是概率排序能力，不依赖某个固定thre
 
 Custom Score=TP*10-FN*20-FP，漏掉欺诈的惩罚最大。
 
-实验7用Optuna搜索模型、训练方法和参数。参数选择只看验证集AUPRC，最终表只汇报测试集结果。
+实验7用Optuna搜索RF+SMOTE的参数。参数选择只看验证集AUPRC，最终表只汇报测试集结果。

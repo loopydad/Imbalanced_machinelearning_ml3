@@ -1,2 +1,2 @@
-﻿experiment_id,experiment_name,split,best_trial_number,model,method,C,n_estimators,max_depth,min_samples_split,min_samples_leaf,max_features,hidden_code,hidden_layer_sizes,alpha,learning_rate_init,max_iter,weight_mode,pos_weight,sampling_strategy,k_neighbors,test_AUPRC,test_Average_Precision,test_Custom_Score
-exp7,optuna_search,test,24,RF,SMOTE,0.5738056902874737,34,11,2,1,sqrt,16,"(16,)",0.00018865364998669232,0.0020539910138006007,14,,,0.05739742944464052,4,0.8343118903319047,0.8343986180734905,622
+﻿experiment_id,experiment_name,split,best_trial_number,model,method,sampling_strategy,k_neighbors,n_estimators,max_depth,min_samples_split,min_samples_leaf,max_features,test_AUPRC,test_Average_Precision,test_Custom_Score
+exp7,optuna_rf_smote,test,0,RF,SMOTE,0.1,5,25,10,2,2,sqrt,0.8341189343517004,0.834190880892535,673
