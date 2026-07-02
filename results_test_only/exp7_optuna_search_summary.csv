@@ -1,2 +1,0 @@
-﻿experiment_id,experiment_name,split,best_trial_number,model,method,sampling_strategy,k_neighbors,n_estimators,max_depth,min_samples_split,min_samples_leaf,max_features,test_AUPRC,test_Average_Precision,test_Custom_Score
-exp7,optuna_rf_smote,test,0,RF,SMOTE,0.1,5,25,10,2,2,sqrt,0.8341189343517004,0.834190880892535,673

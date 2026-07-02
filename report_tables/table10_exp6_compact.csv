@@ -1,0 +1,5 @@
+﻿selected_config_type,training_method,threshold,sampling_strategy,k_neighbors,class_weight_setting,AUPRC,Average_Precision,Fraud_F1,Precision,Recall,FP,FN,TP,Custom_Score
+none,none,0.2,,,,0.8051,0.8028,0.8188,0.8133,0.8243,28,26,122,672
+best_SMOTE,SMOTE,0.3,0.1,5,,0.8341,0.8342,0.7251,0.6392,0.8378,70,24,124,690
+best_class_weight,class_weight,0.2,,,1,0.8051,0.8028,0.8188,0.8133,0.8243,28,26,122,672
+SMOTEENN_default,SMOTEENN,0.5,1.0,5,,0.7141,0.7007,0.5369,0.4013,0.8108,179,28,120,461
